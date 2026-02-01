@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import './app.css';
-import type { Product } from '../models/products';
-import Catalog from '../../features/catalog/Catalog';
+
 import { Box, Container, createTheme, CssBaseline, ThemeProvider} from '@mui/material';
 import NavBar from './NavBar';
-import { Css } from '@mui/icons-material';
+import { Outlet } from 'react-router';
+
 
 
 function App() {
-  const [products, setProducts] = useState<Product[]>([]);
+  
 
   const [darkMode, setDarkMode] = useState(false);
 
@@ -31,14 +31,7 @@ const theme = createTheme({
   },
 }); 
 
-  useEffect(() => {
-    fetch('https://localhost:5001/api/products')
-      .then(response => response.json())
-      .then(data => setProducts(data)); 
-  }, []);//if there is no deopendency, runs once on mount
-
-   
-  return (
+return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
         <NavBar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
@@ -50,7 +43,8 @@ const theme = createTheme({
 
           }}>
         <Container maxWidth="xl" sx={{mt:14}}>
-          <Catalog products={products}  />
+          <Outlet  />{/* The Outlet component renders the matched child route component -it will render the components defined in the 
+                     router such as HomePage, Catalog, ProductDetails, AboutPage, ContactPage based on the current URL path. */}
         </Container>
         </Box>
 
