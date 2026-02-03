@@ -1,46 +1,34 @@
-import {  useState } from 'react';
-import './app.css';
 
+import './app.css';
 import { Box, Container, createTheme, CssBaseline, ThemeProvider} from '@mui/material';
 import NavBar from './NavBar';
 import { Outlet } from 'react-router';
-
+import { useAppSelector } from '../store/store';
 
 
 function App() {
-  
-
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  }
-
-  
-
-//const darkMode = false;
+const { darkMode } = useAppSelector(state => state.ui);//useAppSelector to access darkMode from the Redux store
 const palleteType = darkMode ? 'dark' : 'light';  
 
 const theme = createTheme({
     palette: {
-        mode: palleteType,
-
-    background: {
-      default: palleteType === 'light' ? '#eaeaea' : '#121212',
+      mode: palleteType,
+      background: {
+        default: palleteType === 'light' ? '#eaeaea' : '#121212',
     },
   },
 }); 
+ 
 
 return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-        <NavBar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+        <NavBar  />
         <Box
           sx={{
             minHeight: '100vh',
             background: darkMode ?  'radial-gradient(circle, #1e3aBa, #111B27)'  :'radial-gradient(circle, #baecf9,#f0f9ff)',
             py: 6
-
           }}>
         <Container maxWidth="xl" sx={{mt:14}}>
           <Outlet  />{/* The Outlet component renders the matched child route component -it will render the components defined in the 

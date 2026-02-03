@@ -2,21 +2,19 @@
 import { useEffect, useState } from "react";
 import type { Product } from "../../app/models/products";
 import  ProductList from "./ProductList";
+import { useFetchProductsQuery } from "./catalogApi";
 
 
 export default function Catalog() {
-  const [products, setProducts] = useState<Product[]>([]);
-
-    useEffect(() => {
-      fetch('https://localhost:5001/api/products')
-        .then(response => response.json())
-        .then(data => setProducts(data)); 
-    }, []);//if there is no deopendency, runs once on mount
-  
+   // Now we can use the generated hook in our component to fetch the products
+    const {data, isLoading} = useFetchProductsQuery();
+    
+    if(isLoading || !data) return <div>Loading...</div>
   
   return (
-  <>
-        <ProductList products={products} />
+  
+<>
+        <ProductList products={data} />
     </>
   );
 }
