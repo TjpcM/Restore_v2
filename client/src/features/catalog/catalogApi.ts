@@ -1,5 +1,4 @@
-import { BuildRounded } from "@mui/icons-material";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi} from "@reduxjs/toolkit/query/react";
 import type { Product } from "../../app/models/products";
 import { baseQueryWithErrorHandling } from "../../app/api/baseApi";
 
